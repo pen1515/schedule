@@ -6,7 +6,10 @@
 #### docker起動
 docker compose up
 #### DB操作時
-bash bin/connect_mysql.sh
+<!-- bash bin/connect_mysql.sh -->
+docker compose exec db /bin/bash
+mysql -u root -p
+show databases;
 
 ####Django起動
 docker compose exec app /bin/bash
@@ -20,6 +23,14 @@ http://localhost:8080/
 
 ### docker落とし方
 docker compose down -v
+#これでもいい
+docker stop $(docker ps -aq)
+ docker rm $(docker ps -aq)
+ 
+ docker network prune -f
+ docker rmi -f $(docker images --filter dangling=true -qa)
+ docker volume rm $(docker volume ls --filter dangling=true -q)
+ docker rmi -f $(docker images -qa)
 
 
 
