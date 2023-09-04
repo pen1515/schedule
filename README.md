@@ -13,13 +13,20 @@ show databases;
 
 ####Django起動
 docker compose exec app /bin/bash
+cd Schedule/
 ./mahou.sh
-python -m pip install Pillow
+python -m pip install Pillow  ←これいらないかも
 python manage.py makemigrations
 python manage.py migrate
-python manage.py loaddata fixture1.json
+python manage.py loaddata fixture1.json　←これいらないかも
 python manage.py runserver 0.0.0.0:8080
 http://localhost:8080/
+
+
+### データベーススーパーユーザー
+Username : isi
+Email address: test@sample.com
+Password: pass
 
 ### docker落とし方
 docker compose down -v
@@ -33,7 +40,7 @@ docker stop $(docker ps -aq)
  docker rmi -f $(docker images -qa)
 
 
-
+ 
 http://localhost:8080/suhedeleapp/test/
 
 ```
