@@ -6,9 +6,11 @@
 </head>
 <body>
   <h1>{{ title }}</h1>
+  <form action="{% url 'suhedeleapp:create' %}" method="post"></form>
   <table>
     {% for i2 in val2 %}
     <tr>
+      <!-- <td>{{ i2.id }}</td> -->
       <td>{{ i2.day }}</td>
       <td>{{ i2.content }}</td>
     </tr>
@@ -16,9 +18,18 @@
   </table>
 
 
+  <table>
+    {% for u in user %}
+    <tr>
+      <td>{{ u.name }}</td>
+      <td>{{ u.password }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 
+  <a href="{% url 'suhedeleapp:create' %}">予定登録</a>
+  <!-- <button onclick="location.href='suhedeleapp:create'">予定登録</button> -->
 
-  
-
+</form>
 </body>
 </html>

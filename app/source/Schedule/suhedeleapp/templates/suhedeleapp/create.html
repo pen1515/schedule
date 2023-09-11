@@ -8,15 +8,18 @@
 </head>
 <body>
   <h1>{{ title }}</h1>
+  <a href="{% url 'suhedeleapp:form' %}">予定画面へ</a>
+  <br>
   <table>
     <form action="{% url 'suhedeleapp:create' %}" method="post">
       {% csrf_token %}
       <!-- {{ form.as_table }} -->
       {{ form.day }}
+      <br>
       {{ form.content }}
       <tr>
         <td></td>
-        <td><input type="submit" value="送信"></td>
+        <td><input type="submit" value="登録"></td>
       </tr>
     </form>
   </table>

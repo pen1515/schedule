@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>login</title>
+</head>
+
+<body>
+    <div class="pt-4">
+        <h1 class="login-name">ログイン</h1>
+        <form action="{% url 'suhedeleapp:login' %}" method="POST">
+            {% csrf_token %}
+            <p><input type="hidden" name="next" value="{{next}}"></p>
+            <!--{{ form.as_p }}-->
+            <p>UserName</p>
+            {{ form.name }}
+            <p>Password</p>
+            {{form.password}}
+            <p class="botton"><input type="submit" value="LOGIN" class="login-botton"></p>
+        </form>
+        <p class="sinki"><a href="{% url 'suhedeleapp:signup' %}">新規登録はこちら</a></p>
+        {{ form.management_form }}
+
+        <a href="{% url 'suhedeleapp:form' %}">アプリへ</a>
+
+    </div>
+</body>
+
+</html>
