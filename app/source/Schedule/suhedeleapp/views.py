@@ -45,13 +45,21 @@ def createView(request):
 
 def signupView(request):
 	message = ''  # 初期表示ではカラ
+	# print(request.method)
 	if (request.method == 'POST'):
 		form = UserAdd(request.POST)
+		# name = request.POST["name"]
+		# password = request.POST["password"]
+		# print(name)
 		if form.is_valid():
 			form.save()
 			return redirect('suhedeleapp:login')
 		else:
 			message = '再入力して下さい'
+
+	else: #初回アクセス時…空のフォームがほしいとき
+		form = UserAdd()
+
 	modelform_dict2 = {
         'title':'新規登録',
         'form': UserAdd(),
@@ -74,18 +82,38 @@ def signupView(request):
 def loginView(request):
     print('request.method == POST')
     print(request.method)
-    # ↑GET
+
+    log = False  # 変数 log を初期化
+    
     if request.method == 'POST':
         next = request.POST.get('next')
-        form = LoginForm(request, data=request.POST)
+        form = UserAdd(request.POST)
         if form.is_valid():
             print('成功')
-            user = form.get_user()
-            if user:
-                login(request, user)
-            return redirect('suhedeleapp:form')
-            # return render(request, 'pengin/home.html', {})
+
+            name = request.POST["name"]
+            password = request.POST["password"]
+            print(name)
+            print(password)
+
+            info = Userlist.objects.all()
+            for user in info:
+                print(f'ID: {user.id}, name: {user.name}, password: {user.password}')
+                if (name == user.name and password == user.password):
+                    print('正しいです。')
+                    log = True
+
+            if log:
+                print('画面遷移')
+                return redirect('suhedeleapp:form')
+            else:
+                return redirect('suhedeleapp:login')
         else:
             print('そんな値はないです')
 
-    return render(request, 'suhedeleapp/login.html')
+    else:  # 初回アクセス時…空のフォームがほしいとき
+        form = UserAdd()
+
+    return render(request, 'suhedeleapp/login.html', {'form': form})
+
+
