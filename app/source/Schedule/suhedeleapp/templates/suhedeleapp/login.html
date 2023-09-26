@@ -12,6 +12,13 @@
         <h1 class="login-name">ログイン</h1>
         <form action="{% url 'suhedeleapp:login' %}" method="POST">
             {% csrf_token %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <p><input type="hidden" name="next" value="{{next}}"></p>
             <!--{{ form.as_p }}-->
             <p>UserName</p>
@@ -23,7 +30,7 @@
         <p class="sinki"><a href="{% url 'suhedeleapp:signup' %}">新規登録はこちら</a></p>
         {{ form.management_form }}
 
-        <a href="{% url 'suhedeleapp:form' %}">アプリへ</a>
+        <!-- <a href="{% url 'suhedeleapp:form' %}">アプリへ</a> -->
 
     </div>
 </body>

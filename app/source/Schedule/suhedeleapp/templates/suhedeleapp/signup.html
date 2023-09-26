@@ -12,8 +12,10 @@
     <form action="{% url 'suhedeleapp:signup' %}" method="post">
       {% csrf_token %}
       <!-- {{ form.as_table }} -->
+      <p>UserName</p>
       {{ form.name }}
       <br>
+      <p>Password</p>
       {{ form.password }}
       <tr>
         <td></td>
@@ -21,5 +23,6 @@
       </tr>
     </form>
   </table>
+  <p class="log"><a href="{% url 'suhedeleapp:login' %}">ログインへ</a></p>
 </body>
 </html>

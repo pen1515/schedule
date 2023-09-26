@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Todolist   , Userlist
 from .forms import TodoAdd, UserAdd
+from django.contrib import messages
 
 # Create your views here.
 
@@ -69,16 +70,6 @@ def signupView(request):
 
 
 
-
-
-
-# ↓作成途中
-
-
-
-
-
-
 def loginView(request):
     print('request.method == POST')
     print(request.method)
@@ -93,21 +84,25 @@ def loginView(request):
 
             name = request.POST["name"]
             password = request.POST["password"]
-            print(name)
-            print(password)
+            # print(name)
+            # print(password)
 
             info = Userlist.objects.all()
             for user in info:
-                print(f'ID: {user.id}, name: {user.name}, password: {user.password}')
+                # print(f'ID: {user.id}, name: {user.name}, password: {user.password}')
                 if (name == user.name and password == user.password):
-                    print('正しいです。')
+                    # print('正しいです。')
                     log = True
 
             if log:
-                print('画面遷移')
+				# ログイン成功メッセージを設定
+                messages.success(request, '')
                 return redirect('suhedeleapp:form')
             else:
+				# ログインエラーメッセージを設定
+                messages.error(request, 'ログインに失敗しました。正しい情報を入力してください。')
                 return redirect('suhedeleapp:login')
+
         else:
             print('そんな値はないです')
 
